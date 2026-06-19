@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,22 +13,26 @@ public class PlayerMovement : MonoBehaviour {
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool dash = false;
+	private PlayerInput input;
 
-	//bool dashAxis = false;
-	
+	private void Start()
+	{
+		input = Player.Instance.input;
+	}
+
 	// Update is called once per frame
 	void Update () {
 
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+		horizontalMove = input.Player.Move.ReadValue<Vector2>().x * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		if (Input.GetKeyDown(KeyCode.UpArrow))
+		if (input.Player.Jump.triggered)
 		{
 			jump = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.C))
+		if (input.Player.Dash.triggered)
 		{
 			dash = true;
 		}

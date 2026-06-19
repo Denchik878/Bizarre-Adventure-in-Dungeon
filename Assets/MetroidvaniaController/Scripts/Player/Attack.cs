@@ -19,16 +19,13 @@ public class Attack : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		input = Player.Instance.input;
 	}
 
-	// Start is called before the first frame update
 	void Start()
     {
-        
+	    input = Player.Instance.input;
     }
 
-    // Update is called once per frame
     void Update()
     {
 		if (input.Player.Attack.triggered && canAttack)
@@ -38,7 +35,7 @@ public class Attack : MonoBehaviour
 			StartCoroutine(AttackCooldown());
 		}
 
-		if (Input.GetKeyDown(throW))
+		if (input.Player.Throw.triggered)
 		{
 			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
 			Vector2 direction = new Vector2(transform.localScale.x, 0);
